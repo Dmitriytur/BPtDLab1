@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,11 +7,13 @@ using System.Windows.Forms;
 
 namespace BPtDLab1
 {
-	public partial class Form1 : Form
+	static class WindowConsole
 	{
-		public Form1()
+		public static RichTextBox textBox { set; get; }
+
+		public static void WriteLine(string value)
 		{
-			InitializeComponent();
+			textBox.Text += value + '\n';
 		}
 	}
 }
