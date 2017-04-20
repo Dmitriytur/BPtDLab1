@@ -53,7 +53,7 @@ namespace BPtDLab1
 			new int[][]
 			{
 				new int[] { 2, 12, 4, 1, 7, 10, 11, 6, 8, 5, 3, 15, 13, 0, 14, 9 },
-				new int[] { 14, 11, 2, 12, 4, 7, 13, 1, 5, 0, 15, 10, 3, 9, 8, 6, },
+				new int[] { 14, 11, 2, 12, 4, 7, 13, 1, 5, 0, 15, 10, 3, 9, 8, 6 },
 				new int[] { 4, 2, 1, 11, 10, 13, 7, 8, 15, 9, 12, 5, 6, 3, 0, 14 },
 				new int[] { 11, 8, 12, 7, 1, 14, 2, 13, 6, 15, 0, 9, 10, 4, 5, 3 }
 			},
@@ -91,9 +91,54 @@ namespace BPtDLab1
 
 		public static int CountFunction(int right, long roundKey)
 		{
-			//TODO
-			return right ^ (int)(roundKey >> 18);
+			long block48 = ExtendBlock(right);
+			long encryptedBlock48 = block48 ^ (roundKey & 0x00_00_FF_FF_FF_FF_FF_FF);
+			int block32 = doSBoxes(encryptedBlock48);
+			int shuffledBlock32 = ShuffleBlock32(block32);
+
+			return shuffledBlock32;
 		}
+
+		private static long ExtendBlock(int block32)
+		{
+			long block48 = 0;
+			for (int i = 0; i < 48; i++)
+			{
+				long bit = (block32 >> extensionBox[i] - 1) & 1;
+				block48 |= bit << i;
+			}
+			return block48;
+		}
+
+		private static int doSBoxes(long block48)
+		{
+			int block32 = 0;
+			for (int i = 0; i < 8; i++)
+			{
+				int block6 = (int)(block48 >> 6 * (7 - i));
+				block6 &= 0x3F;
+				int row = ((block6 >> 4) & 2) | (block6 & 1);
+				int colum = (block6 >> 1) & 0xF;
+				int block4 = sBoxes[i][row][colum];
+				block32 |= block4 << (7 - i) * 4;
+			}
+			return block32;
+		}
+
+		private static int ShuffleBlock32(int block32)
+		{
+			int resultBlock = 0;
+			for (int i = 0; i < 32; i++)
+			{
+				int bit = (block32 >> directPBox[i] - 1) & 1;
+				resultBlock |= bit << i;
+			}
+			return resultBlock;
+		}
+
+
+
+
 	}
 
 }

@@ -20,21 +20,23 @@ namespace BPtDLab1
 
 		private void testButton_Click(object sender, EventArgs e)
 		{
-			byte[] message = new byte[30];
-			for (int i = 0; i < 30; i++)
+			byte[] message = new byte[32];
+			for (int i = 0; i < message.Length; i++)
 			{
-				message[i] = (byte)i;
+				message[i] = (byte)(i+1);
 			}
-			long key = KeyGenerator.GenerateKey();
+			//long key = BitConverter.ToInt64(BitConverter.GetBytes(0xaabb09182736ccdd), 0);
+			long key = 10001241012350000;
+	
 			byte[] cryptogram = DESProvider.Encrypt(message, key);
 			
 			for (int i = 0; i < cryptogram.Length; i++)
 			{
-				WindowConsole.Write(cryptogram[i].ToString() + ' ');
+				//WindowConsole.Write(cryptogram[i].ToString() + ' ');
 			}
 			message = DESProvider.Decrypt(cryptogram, key);
 
-			WindowConsole.WriteLine("");
+			//WindowConsole.WriteLine("");
 			for (int i = 0; i < cryptogram.Length; i++)
 			{
 				WindowConsole.Write(message[i].ToString() + ' ');
