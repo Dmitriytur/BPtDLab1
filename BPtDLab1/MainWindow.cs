@@ -16,13 +16,16 @@ namespace BPtDLab1
 		{
 			InitializeComponent();
 			WindowConsole.textBox = mainTextBox;
-			byte[] message = { 1, 2, 3, 4, 5, 6, 7, 8 };
+		}
+
+		private void testButton_Click(object sender, EventArgs e)
+		{
+			byte[] message = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
 			byte[] cryptogram = DESProvider.Encrypt(message, 0);
 			for (int i = 0; i < cryptogram.Length; i++)
 			{
 				WindowConsole.WriteLine(cryptogram[i].ToString());
 			}
-			
 		}
 	}
 }

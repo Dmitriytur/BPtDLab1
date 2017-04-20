@@ -63,7 +63,7 @@ namespace BPtDLab1
 
 		private static byte[] ExtendTo64Blocks(byte[] message)
 		{
-			int newLength = message.Length + message.Length % ammountOfBytes;
+			int newLength = message.Length + 8 - (message.Length % ammountOfBytes);
 			byte[] extendedMessage = new byte[newLength];
 			Array.Copy(message, extendedMessage, message.Length);
 			return extendedMessage;
