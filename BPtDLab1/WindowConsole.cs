@@ -15,5 +15,10 @@ namespace BPtDLab1
 		{
 			textBox.Text += value + '\n';
 		}
+
+		public static void Write(string value)
+		{
+			textBox.Text += value;
+		}
 	}
 }

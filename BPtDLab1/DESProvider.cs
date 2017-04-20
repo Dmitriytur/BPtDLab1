@@ -6,14 +6,16 @@ using System.Threading.Tasks;
 
 namespace BPtDLab1
 {
-	static class DESProvider
+	public static class DESProvider
 	{
 
 		private const int bitsInByte = 8;
 
-		const int amountOfBits = 64;
+		private const int amountOfBits = 64;
 
-		const int ammountOfBytes = 8;
+		private const int ammountOfBytes = 8;
+
+		private const int amountOfRounds = 16;
 
 
 		private static readonly int[] startShuffleMatrix =
@@ -42,6 +44,16 @@ namespace BPtDLab1
 
 		public static byte[] Encrypt(byte[] message, long key)
 		{
+			return doAlgorithm(message, key, false);
+		}
+
+		public static byte[] Decrypt(byte[] cryptogram, long key)
+		{
+			return doAlgorithm(cryptogram, key, true);
+		}
+
+		private static byte[] doAlgorithm(byte[] message, long key, bool isDecryption)
+		{
 			byte[] extendedMessage = ExtendTo64Blocks(message);
 			byte[] cryptogram = new byte[extendedMessage.Length];
 			for (int i = 0; i < extendedMessage.Length; i += 8)
@@ -50,7 +62,7 @@ namespace BPtDLab1
 				long shuffledBlock = Shuffle(block, startShuffleMatrix);
 				int left = (int)(shuffledBlock >> 32);
 				int right = (int)shuffledBlock;
-				FeistelNetwork(ref left, ref right, key);
+				FeistelNetwork(ref left, ref right, key, isDecryption);
 				long encryptedShuffledBlock = (((long)left) << 32) | (long)right;
 				long encryptedBlock = Shuffle(encryptedShuffledBlock, finishShuffleMatrix);
 				byte[] byteBlock = BitConverter.GetBytes(encryptedBlock);
@@ -81,8 +93,26 @@ namespace BPtDLab1
 			return result;
 		}
 
-		private static void FeistelNetwork(ref int left, ref int right, long key)
+		private static void FeistelNetwork(ref int leftRef, ref int rightRef, long key, bool isDecryption)
 		{
+			int left = leftRef;
+			int right = rightRef;
+			long[] roundKeys = KeyGenerator.GenerateRoundKeys(key);
+
+			if (isDecryption)
+			{
+				Array.Reverse(roundKeys);
+			}
+
+			for (int i = 0; i < amountOfRounds; i++)
+			{
+				int temp = right;
+				right = left ^ DESFunctionProvider.CountFunction(right, roundKeys[i]);
+				left = temp;
+			}
+
+			leftRef = right;
+			rightRef = left;
 
 		}
 
