@@ -135,10 +135,6 @@ namespace BPtDLab1
 			}
 			return resultBlock;
 		}
-
-
-
-
 	}
 
 }

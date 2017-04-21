@@ -62,8 +62,11 @@ namespace BPtDLab1
 				long shuffledBlock = Shuffle(block, startShuffleMatrix);
 				int left = (int)(shuffledBlock >> 32);
 				int right = (int)shuffledBlock;
-				FeistelNetwork(ref left, ref right, key, isDecryption);
-				long encryptedShuffledBlock = (((long)left) << 32) | (long)right;
+				long[] roundKeys = KeyGenerator.GenerateRoundKeys(key);
+				FeistelNetwork(ref left, ref right, roundKeys, isDecryption);
+				long resLeft = ((long)left) & 0xFF_FF_FF_FF;
+				long resRight = ((long)right) & 0xFF_FF_FF_FF;
+				long encryptedShuffledBlock = ((resLeft) << 32) | resRight;
 				long encryptedBlock = Shuffle(encryptedShuffledBlock, finishShuffleMatrix);
 				byte[] byteBlock = BitConverter.GetBytes(encryptedBlock);
 				Array.Copy(byteBlock, 0, cryptogram, i, 8);
@@ -95,27 +98,33 @@ namespace BPtDLab1
 			}
 
 			return result;
+
 		}
 
-		private static void FeistelNetwork(ref int leftRef, ref int rightRef, long key, bool isDecryption)
+		private static void FeistelNetwork(ref int leftRef, ref int rightRef, long[] roundKeys, bool isDecryption)
 		{
 			int left = leftRef;
 			int right = rightRef;
-			long[] roundKeys = KeyGenerator.GenerateRoundKeys(key);
-
-			if (isDecryption)
+			if (!isDecryption)
 			{
-				Array.Reverse(roundKeys);
+				for (int i = 0; i < amountOfRounds; i++)
+				{
+					int temp = right;
+					right = left ^ DESFunctionProvider.CountFunction(right, roundKeys[i]); ;
+					left = temp;
+				}
 			}
-
-			for (int i = 0; i < amountOfRounds; i++)
+			else
 			{
-				int temp = right;
-				right = left ^ DESFunctionProvider.CountFunction(right, roundKeys[i]);
-				left = temp;
+				for (int i = amountOfRounds - 1; i >= 0; i--)
+				{
+					int temp = left;
+					left = right ^ DESFunctionProvider.CountFunction(left, roundKeys[i]); ;
+					right = temp;
+				}
 			}
-			leftRef = right;
-			rightRef = left;
+			leftRef = left;
+			rightRef = right;
 
 		}
 
