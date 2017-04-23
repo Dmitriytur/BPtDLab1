@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BPtDLab1
+namespace DESEncryption
 {
 	static class KeyGenerator
 	{
@@ -40,19 +40,7 @@ namespace BPtDLab1
 		};
 
 
-
-		public static long GenerateKey()
-		{
-			Random r = new Random();
-			int lowPart = r.Next(Int32.MinValue, Int32.MaxValue);
-			int highPart = r.Next(Int32.MinValue, Int32.MaxValue);
-			long key = 0;
-			key |= ((long)highPart) << 32;
-			key = key | Convert.ToInt64(lowPart);
-			return key;
-		}
-
-		public static long[] GenerateRoundKeys(long mainKey)
+		internal static long[] GenerateRoundKeys(long mainKey)
 		{
 			long[] keys = new long[amountOfRounds];
 			int cKey, dKey;

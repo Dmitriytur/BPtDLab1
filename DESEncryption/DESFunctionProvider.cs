@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BPtDLab1
+namespace DESEncryption
 {
 	static class DESFunctionProvider
 	{
@@ -89,7 +89,7 @@ namespace BPtDLab1
 		};
 
 
-		public static int CountFunction(int right, long roundKey)
+		internal static int CountFunction(int right, long roundKey)
 		{
 			long block48 = ExtendBlock(right);
 			long encryptedBlock48 = block48 ^ (roundKey & 0x00_00_FF_FF_FF_FF_FF_FF);

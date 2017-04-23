@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BPtDLab1
+namespace DESEncryption
 {
-	public static class DESProvider
+	public static class Cipher
 	{
 
 		private const int bitsInByte = 8;

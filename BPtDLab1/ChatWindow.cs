@@ -10,21 +10,17 @@ using System.Windows.Forms;
 
 namespace BPtDLab1
 {
-	public partial class MainWindow : Form
+	public partial class ChatWindow : Form
 	{
-		public MainWindow()
+		public ChatWindow()
 		{
 			InitializeComponent();
 		}
 
-		private void generateKeyToolStripMenuItem_Click(object sender, EventArgs e)
+		private void sendButton_Click(object sender, EventArgs e)
 		{
-			new KeyGenWindow().Show();
-		}
-
-		private void openChatButton_Click(object sender, EventArgs e)
-		{
-			new ChatWindow().Show();
+			chatBox.Text += "You >> " + messageBox.Text + '\n';
+			messageBox.Clear();
 		}
 	}
 }
