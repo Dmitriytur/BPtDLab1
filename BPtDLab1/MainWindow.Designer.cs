@@ -31,13 +31,14 @@
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.genereteKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.generateKeyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-			this.textBox1 = new System.Windows.Forms.TextBox();
-			this.textBox2 = new System.Windows.Forms.TextBox();
-			this.textBox3 = new System.Windows.Forms.TextBox();
+			this.addressBox = new System.Windows.Forms.TextBox();
+			this.portBox = new System.Windows.Forms.TextBox();
+			this.keyBox = new System.Windows.Forms.TextBox();
 			this.openChatButton = new System.Windows.Forms.Button();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
+			this.waitButton = new System.Windows.Forms.Button();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -62,38 +63,38 @@
 			// generateKeyToolStripMenuItem
 			// 
 			this.generateKeyToolStripMenuItem.Name = "generateKeyToolStripMenuItem";
-			this.generateKeyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+			this.generateKeyToolStripMenuItem.Size = new System.Drawing.Size(142, 22);
 			this.generateKeyToolStripMenuItem.Text = "Generate key";
 			this.generateKeyToolStripMenuItem.Click += new System.EventHandler(this.generateKeyToolStripMenuItem_Click);
 			// 
-			// textBox1
+			// addressBox
 			// 
-			this.textBox1.Location = new System.Drawing.Point(82, 40);
-			this.textBox1.Name = "textBox1";
-			this.textBox1.Size = new System.Drawing.Size(167, 20);
-			this.textBox1.TabIndex = 1;
+			this.addressBox.Location = new System.Drawing.Point(82, 40);
+			this.addressBox.Name = "addressBox";
+			this.addressBox.Size = new System.Drawing.Size(167, 20);
+			this.addressBox.TabIndex = 1;
 			// 
-			// textBox2
+			// portBox
 			// 
-			this.textBox2.Location = new System.Drawing.Point(82, 69);
-			this.textBox2.Name = "textBox2";
-			this.textBox2.Size = new System.Drawing.Size(167, 20);
-			this.textBox2.TabIndex = 2;
+			this.portBox.Location = new System.Drawing.Point(82, 69);
+			this.portBox.Name = "portBox";
+			this.portBox.Size = new System.Drawing.Size(167, 20);
+			this.portBox.TabIndex = 2;
 			// 
-			// textBox3
+			// keyBox
 			// 
-			this.textBox3.Location = new System.Drawing.Point(82, 95);
-			this.textBox3.Name = "textBox3";
-			this.textBox3.Size = new System.Drawing.Size(167, 20);
-			this.textBox3.TabIndex = 3;
+			this.keyBox.Location = new System.Drawing.Point(82, 95);
+			this.keyBox.Name = "keyBox";
+			this.keyBox.Size = new System.Drawing.Size(167, 20);
+			this.keyBox.TabIndex = 3;
 			// 
 			// openChatButton
 			// 
-			this.openChatButton.Location = new System.Drawing.Point(97, 138);
+			this.openChatButton.Location = new System.Drawing.Point(26, 130);
 			this.openChatButton.Name = "openChatButton";
-			this.openChatButton.Size = new System.Drawing.Size(75, 23);
+			this.openChatButton.Size = new System.Drawing.Size(76, 23);
 			this.openChatButton.TabIndex = 4;
-			this.openChatButton.Text = "Open chat";
+			this.openChatButton.Text = "Connect";
 			this.openChatButton.UseVisualStyleBackColor = true;
 			this.openChatButton.Click += new System.EventHandler(this.openChatButton_Click);
 			// 
@@ -124,18 +125,29 @@
 			this.label3.TabIndex = 5;
 			this.label3.Text = "Key";
 			// 
+			// waitButton
+			// 
+			this.waitButton.Location = new System.Drawing.Point(134, 130);
+			this.waitButton.Name = "waitButton";
+			this.waitButton.Size = new System.Drawing.Size(116, 23);
+			this.waitButton.TabIndex = 6;
+			this.waitButton.Text = "Wait for connection";
+			this.waitButton.UseVisualStyleBackColor = true;
+			this.waitButton.Click += new System.EventHandler(this.waitButton_Click);
+			// 
 			// MainWindow
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(284, 188);
+			this.Controls.Add(this.waitButton);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.label1);
 			this.Controls.Add(this.openChatButton);
-			this.Controls.Add(this.textBox3);
-			this.Controls.Add(this.textBox2);
-			this.Controls.Add(this.textBox1);
+			this.Controls.Add(this.keyBox);
+			this.Controls.Add(this.portBox);
+			this.Controls.Add(this.addressBox);
 			this.Controls.Add(this.menuStrip1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.MainMenuStrip = this.menuStrip1;
@@ -154,12 +166,13 @@
 		private System.Windows.Forms.MenuStrip menuStrip1;
 		private System.Windows.Forms.ToolStripMenuItem genereteKeyToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem generateKeyToolStripMenuItem;
-		private System.Windows.Forms.TextBox textBox1;
-		private System.Windows.Forms.TextBox textBox2;
-		private System.Windows.Forms.TextBox textBox3;
+		private System.Windows.Forms.TextBox addressBox;
+		private System.Windows.Forms.TextBox portBox;
+		private System.Windows.Forms.TextBox keyBox;
 		private System.Windows.Forms.Button openChatButton;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Button waitButton;
 	}
 }

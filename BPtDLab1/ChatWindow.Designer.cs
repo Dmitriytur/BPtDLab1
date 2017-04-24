@@ -75,6 +75,7 @@
 			this.MaximizeBox = false;
 			this.Name = "ChatWindow";
 			this.Text = "ChatWindow";
+			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ChatWindow_FormClosed);
 			this.ResumeLayout(false);
 
 		}
