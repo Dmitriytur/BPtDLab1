@@ -84,7 +84,7 @@ namespace DESEncryption
 				bits &= 3;
 			}
 			key |= bits;
-			key &= 0x0F_FF_FF_FF;
+			key &= 0x0FFFFFFF;
 		}
 
 		private static long ShrinkKey(long key56)

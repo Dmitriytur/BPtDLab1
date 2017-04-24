@@ -92,7 +92,7 @@ namespace DESEncryption
 		internal static int CountFunction(int right, long roundKey)
 		{
 			long block48 = ExtendBlock(right);
-			long encryptedBlock48 = block48 ^ (roundKey & 0x00_00_FF_FF_FF_FF_FF_FF);
+			long encryptedBlock48 = block48 ^ (roundKey & 0x0000FFFFFFFFFFFF);
 			int block32 = doSBoxes(encryptedBlock48);
 			int shuffledBlock32 = ShuffleBlock32(block32);
 

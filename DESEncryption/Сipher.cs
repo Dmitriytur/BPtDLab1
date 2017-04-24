@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace DESEncryption
 {
@@ -64,8 +65,8 @@ namespace DESEncryption
 				int right = (int)shuffledBlock;
 				long[] roundKeys = KeyGenerator.GenerateRoundKeys(key);
 				FeistelNetwork(ref left, ref right, roundKeys, isDecryption);
-				long resLeft = ((long)left) & 0xFF_FF_FF_FF;
-				long resRight = ((long)right) & 0xFF_FF_FF_FF;
+				long resLeft = ((long)left) & 0xFFFFFFFF;
+				long resRight = ((long)right) & 0xFFFFFFFF;
 				long encryptedShuffledBlock = ((resLeft) << 32) | resRight;
 				long encryptedBlock = Shuffle(encryptedShuffledBlock, finishShuffleMatrix);
 				byte[] byteBlock = BitConverter.GetBytes(encryptedBlock);
@@ -109,22 +110,49 @@ namespace DESEncryption
 			{
 				for (int i = 0; i < amountOfRounds; i++)
 				{
+					MessageBox.Show(CountEntropy(left, right).ToString());
 					int temp = right;
 					right = left ^ DESFunctionProvider.CountFunction(right, roundKeys[i]); ;
 					left = temp;
+					
 				}
 			}
 			else
 			{
 				for (int i = amountOfRounds - 1; i >= 0; i--)
 				{
+					MessageBox.Show(CountEntropy(left, right).ToString());
 					int temp = left;
 					left = right ^ DESFunctionProvider.CountFunction(left, roundKeys[i]); ;
 					right = temp;
+					
 				}
 			}
 			leftRef = left;
 			rightRef = right;
+
+		}
+
+		private static double CountEntropy(int left, int right)
+		{
+			double result = 0;
+			double ones = 0;
+			while (right != 0)
+			{
+				ones += Math.Abs( right % 2);
+				right /= 2;
+			}
+			while (left != 0)
+			{
+				ones += Math.Abs(left % 2);
+				left /= 2;
+			}
+
+			double p1 = ones / 64;
+			double p0 = (64 - ones) / 64;
+			result = -(p1 * Math.Log(p1, 2) + p0 * Math.Log(p0, 2));
+			return result;
+
 
 		}
 
