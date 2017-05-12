@@ -19,7 +19,6 @@ namespace BPtDLab1
 		string address;
 		int port;
 		long key;
-		bool stop;
 
 		public WaitWindow(string address, int port, long key)
 		{
@@ -27,8 +26,8 @@ namespace BPtDLab1
 			this.address = address;
 			this.port = port;
 			this.key = key;
-			stop = false;
 			Thread listenerThread = new Thread(new ThreadStart(WaitForConnection));
+			listenerThread.IsBackground = true;
 			listenerThread.Start();
 		}
 
@@ -49,19 +48,12 @@ namespace BPtDLab1
 				var chatWindow = new ChatWindow(handler, key);
 				Action action = () => chatWindow.Show();
 				Invoke(action);
-
-				if (stop)
-				{
-					sListener.Shutdown(SocketShutdown.Both);
-					sListener.Close();
-					break;
-				}
+				
 			}
 		}
 
 		private void cancelButton_Click(object sender, EventArgs e)
 		{
-			stop = true;
 			sListener.Shutdown(SocketShutdown.Both);
 			sListener.Close();
 			Close();

@@ -17,15 +17,14 @@ namespace BPtDLab1
 	{
 		Socket handler;
 		long key;
-		bool stopReceiving;
 
 		public ChatWindow(Socket handler, long key)
 		{
 			InitializeComponent();
 			this.handler = handler;
 			this.key = key;
-			stopReceiving = false;
 			Thread messageReceiver = new Thread(new ThreadStart(WaitForMessages));
+			messageReceiver.IsBackground = true;
 			messageReceiver.Start();
 		}
 		
@@ -44,10 +43,7 @@ namespace BPtDLab1
 				byte[] message = Cipher.Decrypt(buffer, key);
 				chatBox.Text += "Someone >> " + Encoding.UTF8.GetString(message);
 				chatBox.Text += '\n';
-				if (stopReceiving)
-				{
-					break;
-				}
+				
 			}
 
 		}
@@ -61,11 +57,5 @@ namespace BPtDLab1
 			messageBox.Clear();
 		}
 
-		private void ChatWindow_FormClosed(object sender, FormClosedEventArgs e)
-		{
-			stopReceiving = true;
-			handler.Shutdown(SocketShutdown.Both);
-			handler.Close();
-		}
 	}
 }

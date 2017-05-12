@@ -110,7 +110,6 @@ namespace DESEncryption
 			{
 				for (int i = 0; i < amountOfRounds; i++)
 				{
-					MessageBox.Show(CountEntropy(left, right).ToString());
 					int temp = right;
 					right = left ^ DESFunctionProvider.CountFunction(right, roundKeys[i]); ;
 					left = temp;
@@ -121,7 +120,6 @@ namespace DESEncryption
 			{
 				for (int i = amountOfRounds - 1; i >= 0; i--)
 				{
-					MessageBox.Show(CountEntropy(left, right).ToString());
 					int temp = left;
 					left = right ^ DESFunctionProvider.CountFunction(left, roundKeys[i]); ;
 					right = temp;

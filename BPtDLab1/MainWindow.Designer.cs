@@ -73,6 +73,7 @@
 			this.addressBox.Name = "addressBox";
 			this.addressBox.Size = new System.Drawing.Size(167, 20);
 			this.addressBox.TabIndex = 1;
+			this.addressBox.Text = "localhost";
 			// 
 			// portBox
 			// 
@@ -80,6 +81,7 @@
 			this.portBox.Name = "portBox";
 			this.portBox.Size = new System.Drawing.Size(167, 20);
 			this.portBox.TabIndex = 2;
+			this.portBox.Text = "11000";
 			// 
 			// keyBox
 			// 
@@ -87,6 +89,7 @@
 			this.keyBox.Name = "keyBox";
 			this.keyBox.Size = new System.Drawing.Size(167, 20);
 			this.keyBox.TabIndex = 3;
+			this.keyBox.Text = "e48f09fe8f1458da";
 			// 
 			// openChatButton
 			// 
