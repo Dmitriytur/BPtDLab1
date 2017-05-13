@@ -46,6 +46,8 @@ namespace BPtDLab1
 				Socket handler = sListener.Accept();
 			
 				var chatWindow = new ChatWindow(handler, key);
+				chatWindow.StartPosition = FormStartPosition.Manual;
+				chatWindow.Location = this.Location;
 				Action action = () => chatWindow.Show();
 				Invoke(action);
 				

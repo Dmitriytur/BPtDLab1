@@ -22,7 +22,7 @@ namespace BPtDLab1
 		private void generateKeyToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var keyGenWindow = new KeyGenWindow();
-			keyGenWindow.DesktopLocation = new Point(Left, Top);
+			keyGenWindow.StartPosition = FormStartPosition.CenterParent;
 			keyGenWindow.ShowDialog();
 		}
 
@@ -36,13 +36,15 @@ namespace BPtDLab1
 			senderSocket.Connect(ipEndPoint);
 
 			var chatWindow = new ChatWindow(senderSocket, Convert.ToInt64(keyBox.Text, 16));
-			chatWindow.Location = new Point(Location.X, Location.Y);
+			chatWindow.StartPosition = FormStartPosition.Manual;
+			chatWindow.Location = this.Location;
 			chatWindow.Show();
 		}
 
 		private void waitButton_Click(object sender, EventArgs e)
 		{
 			var waitWindow = new WaitWindow(addressBox.Text, Convert.ToInt32(portBox.Text), Convert.ToInt64(keyBox.Text, 16));
+			waitWindow.StartPosition = FormStartPosition.Manual;
 			waitWindow.Location = this.Location;
 			waitWindow.Show();
 		}
